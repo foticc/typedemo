@@ -36,4 +36,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 vue3+typescript demo
 
+npm install --registry=https://registry.npm.taobao.org
+
 根据[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)编写的 demo，旨在熟悉 vue3

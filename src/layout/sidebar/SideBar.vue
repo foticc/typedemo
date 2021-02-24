@@ -7,6 +7,7 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
+      router="/"
     >
       <el-submenu index="1">
         <template #title>
@@ -14,10 +15,8 @@
           <span>导航一</span>
         </template>
         <el-menu-item-group title="分组一">
-          <el-menu-item index="1-1"
-            ><router-link to="/about">选项1</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
+          <el-menu-item index="hello"> Hello </el-menu-item>
+          <el-menu-item index="about"> 选项2 </el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="分组2">
           <el-menu-item index="1-3">选项3</el-menu-item>

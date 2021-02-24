@@ -1,20 +1,26 @@
-import { createRouter, createWebHistory,RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import Home from "../views/Home.vue";
 import Layout from "../layout/Index.vue";
+import HelloWorld from "../components/HelloWorld.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     // component:  () => import(/* webpackChunkName: "about" */ '../views/About.vue')
     component: Layout,
     children: [
       {
         path: "/about",
-        name: 'About',
-        component: Home
-      }
-    ]
+        name: "About",
+        component: Home,
+      },
+      {
+        path: "hello",
+        name: "HelloWorld",
+        component: HelloWorld,
+      },
+    ],
   },
   // {
   //   path: '/about',
@@ -25,11 +31,11 @@ const routes: Array<RouteRecordRaw> = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   //   // component: Home
   // }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
