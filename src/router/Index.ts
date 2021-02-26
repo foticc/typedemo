@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
-import Layout from "../layout/Index.vue";
-import HelloWorld from "../components/HelloWorld.vue";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import Home from "../views/Home.vue"
+import Layout from "../layout/Index.vue"
+import HelloWorld from "../components/HelloWorld.vue"
+import About from "@/views/About.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "hello",
         name: "HelloWorld",
-        component: HelloWorld,
+        component: About,
       },
     ],
   },
@@ -31,11 +32,11 @@ const routes: Array<RouteRecordRaw> = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   //   // component: Home
   // }
-];
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-});
+})
 
-export default router;
+export default router
