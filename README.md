@@ -30,6 +30,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 插件
 
+[vue-router](https://next.router.vuejs.org/index.html)
+
 [vue-cli-plugin-element-plus](https://github.com/element-plus)
 
 [element-plus](https://element-plus.gitee.io/#/zh-CN)

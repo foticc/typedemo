@@ -1,8 +1,13 @@
 <template>
   <div id="appmain">
-    <transition name="fade-transform" mode="out-in">
+    <!-- <transition name="fade-transform" mode="out-in">
       <router-view key="/about" />
-    </transition>
+    </transition> -->
+    <router-view v-slot="{ Component }">
+      <transition>
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 <script lang="ts">
