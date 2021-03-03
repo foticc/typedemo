@@ -2,8 +2,11 @@
   <div class="about">
     <h1>Home</h1>
     <h1>
+      <el-input v-model="word" placeholder="请输入内容"></el-input>
+
       <el-button type="primary" @click="table">loading</el-button>
     </h1>
+
     <el-table :data="content" style="width: 100%">
       <el-table-column prop="id" label="ID" width="180"> </el-table-column>
       <el-table-column prop="pinyin" label="拼音" width="180">
@@ -44,14 +47,16 @@ export default defineComponent({
   setup() {
     const content = ref([]);
     const total = ref(0);
-    const pageindex = ref(1).value;
-    const pagesize = ref(12).value;
+    const pageindex = ref(1);
+    const pagesize = ref(12);
+    const word = ref("yi");
     const table = async (pageindex: number = 1, pagesize: number = 12) => {
       await request
         .get("/hanzi/pagelist", {
           params: {
             pageindex,
             pagesize,
+            "hanzi.word": word.value,
           },
         })
         .then((res) => {
@@ -69,6 +74,7 @@ export default defineComponent({
       table,
       pageindex,
       pagesize,
+      word,
     };
   },
 });
