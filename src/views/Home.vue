@@ -7,9 +7,7 @@
         placeholder="请输入内容"
       ></el-input>
 
-      <el-button type="primary" @click="table(pageindex, pagesize, params)"
-        >loading</el-button
-      >
+      <el-button type="primary" @click="table()">loading</el-button>
     </h1>
 
     <el-table :data="content" style="width: 100%">
@@ -58,8 +56,10 @@ export default defineComponent({
     const table = async (
       pageindex: number = 1,
       pagesize: number = 12,
-      word: Object
+      word: Object = params
     ) => {
+      console.log(typeof word);
+      console.log(pageindex);
       await request
         .post("/hanzi/pagelist", word, {
           params: {

@@ -1,49 +1,55 @@
 import request from "@/utils/request"
-import { computed, ref, Ref } from "vue"
+import { AxiosRequestConfig, AxiosResponse } from "axios"
+import { computed, reactive, ref, Ref, UnwrapRef } from "vue"
 
-type PageInfo = {
+interface RequestParams {
   pageindex: number
   pagesize: number
+  params: any
 }
 
 interface PageTableResult {
-  total: Ref<number>
-  content: Ref<Array<any>>
-  handleSizeChange: (val: number) => void
-  handleCurrentChange: (val: number) => void
+  total: number
+  content: Array<any>
 }
 
-export function pageTable(uri: string): PageTableResult
-export function pageTable(
-  uri: string,
-  pageinfo: PageInfo = { pageindex: 1, pagesize: 12 }
-): PageTableResult {
-  const data: PageTableResult = {
-    total: ref(0),
-    content: ref([]),
-    handleSizeChange: (val) => {
-      pageTable(uri)
-    },
-    handleCurrentChange: (val) => {
-      console.log(val)
-    },
-  }
-  request
-    .get(uri, {
+export function pageTable(uri: string) {
+  const data = reactive({
+    pageindex: 1,
+    pagesize: 12,
+    total: 0,
+    content: [],
+    params: {},
+  })
+  const getTableData = async () => {
+    const res = await request.post(uri, data.params, {
       params: {
-        pageindex: pageinfo.pageindex,
-        pagesize: pageinfo.pagesize,
+        pageindex: data.pageindex,
+        pagesize: data.pagesize,
       },
     })
-    .then((res) => {
-      data.total.value = res.data.totalElements
-      data.content.value = res.data.content
-      console.log(data)
-      return data
-    })
-    .catch((err) => {})
-    .finally(() => {})
-  return data
+    if (res.data) {
+      data.total = res.data.totalElements
+      data.content = res.data.content
+    }
+  }
+
+  const handleSizeChange = (val: number) => {
+    data.pagesize = val
+    getTableData()
+  }
+
+  const handleCurrentChange = (val: number) => {
+    data.pageindex = val
+    getTableData()
+  }
+
+  return {
+    data,
+    getTableData,
+    handleSizeChange,
+    handleCurrentChange,
+  }
 }
 
 export function handleSizeChange(val: number) {
