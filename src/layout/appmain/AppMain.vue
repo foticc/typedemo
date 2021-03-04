@@ -1,4 +1,6 @@
 <template>
+  <!-- <Suspense> -->
+  <!-- <template #default> -->
   <div id="appmain">
     <!-- <transition name="fade-transform" mode="out-in">
       <router-view key="/about" />
@@ -9,6 +11,11 @@
       </transition>
     </router-view>
   </div>
+  <!-- </template> -->
+  <!-- <template #default>
+      <h1>加载失败...12121221.</h1>
+    </template> -->
+  <!-- </Suspense> -->
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

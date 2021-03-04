@@ -2,16 +2,18 @@
   <div class="about">
     <h1>Home</h1>
     <h1>
-      <el-input v-model="word" placeholder="请输入内容"></el-input>
+      <el-input v-model="zhengma" placeholder="请输入内容"></el-input>
 
-      <el-button type="primary" @click="table">loading</el-button>
+      <el-button type="primary" @click="table(pageindex, pagesize, zhengma)"
+        >loading</el-button
+      >
     </h1>
 
     <el-table :data="content" style="width: 100%">
       <el-table-column prop="id" label="ID" width="180"> </el-table-column>
       <el-table-column prop="pinyin" label="拼音" width="180">
       </el-table-column>
-      <el-table-column prop="word" label="汉字"> </el-table-column>
+      <el-table-column prop="zhengma" label="汉字"> </el-table-column>
     </el-table>
     <div class="block">
       <el-pagination
@@ -37,11 +39,11 @@ export default defineComponent({
   methods: {
     handleSizeChange(val: number) {
       // this.pageTable.init(pagesize);
-      this.table(this.pageindex, val);
+      this.table(this.pageindex, val, this.zhengma);
     },
     handleCurrentChange(val: number) {
       // this.getall(val);
-      this.table(val, this.pagesize);
+      this.table(val, this.pagesize, this.zhengma);
     },
   },
   setup() {
@@ -49,16 +51,25 @@ export default defineComponent({
     const total = ref(0);
     const pageindex = ref(1);
     const pagesize = ref(12);
-    const word = ref("yi");
-    const table = async (pageindex: number = 1, pagesize: number = 12) => {
+    const zhengma = ref(null);
+    const table = async (
+      pageindex: number = 1,
+      pagesize: number = 12,
+      word: any
+    ) => {
       await request
-        .get("/hanzi/pagelist", {
-          params: {
-            pageindex,
-            pagesize,
-            "hanzi.word": word.value,
+        .post(
+          "/hanzi/pagelist",
+          {
+            zhengma: word,
           },
-        })
+          {
+            params: {
+              pageindex,
+              pagesize,
+            },
+          }
+        )
         .then((res) => {
           content.value = res.data.content;
           total.value = res.data.totalElements;
@@ -67,14 +78,16 @@ export default defineComponent({
           console.log(err);
         });
     };
-    onBeforeMount(table);
+    onBeforeMount(() => {
+      table(pageindex.value, pagesize.value, zhengma.value);
+    });
     return {
       content,
       total,
       table,
       pageindex,
       pagesize,
-      word,
+      zhengma,
     };
   },
 });

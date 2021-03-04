@@ -1,13 +1,15 @@
 /* eslint-disable no-redeclare */
 <template>
-  <div class="about">
+  <div>
     <h1>This is an about page</h1>
     <code>{{ info }}</code>
     <h1><el-button type="primary" @click="login">login</el-button></h1>
     <h1>
-      <el-button type="primary" @click="pageTable.init">loading</el-button>
+      <el-button type="primary" @click="pageTable('/permission/pagelist')"
+        >loading</el-button
+      >
     </h1>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="content" style="width: 100%">
       <el-table-column prop="permissionsName" label="日期" width="180">
       </el-table-column>
       <el-table-column prop="resource" label="姓名" width="180">
@@ -21,10 +23,10 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-sizes="[1, 2, 3, 4]"
+        :page-size="3"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="total"
       >
       </el-pagination>
     </div>
@@ -32,30 +34,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import PageTable from "@/components/PageTable";
+import { defineComponent, reactive, ref } from "vue";
+import { pageTable } from "@/components/PageTable";
 import { useStore } from "vuex";
 import request from "@/utils/request";
 export default defineComponent({
   data() {
     return {};
   },
-  methods: {
-    handleSizeChange(val: number) {
-      // this.pageTable.init(pagesize);
-      console.log(val);
-    },
-    handleCurrentChange(val: number) {
-      // this.getall(val);
-      console.log(val);
-    },
-  },
+  methods: {},
   setup() {
-    const pageTable = new PageTable("/permission/pagelist");
+    const { content, total, handleSizeChange, handleCurrentChange } = reactive(
+      pageTable("/permission/pagelist")
+    );
     const store = useStore();
     let info = ref({});
-    let tableData: any = ref([]);
-    let total = ref(0);
+    // let tableData: any = ref([]);
+
     // const getall = ({ pagesize: number, pageindex: number }) => {
     //   request
     //     .get("/permission/pagelist", { params: { pagesize, pageindex } })
@@ -80,16 +75,17 @@ export default defineComponent({
         });
     };
     const gettoken = () => {
-      console.log(pageTable.init());
       console.log(store.state.user.token);
     };
     return {
-      pageTable,
-      login,
+      content,
+      total,
+      handleSizeChange,
+      handleCurrentChange,
       info,
       gettoken,
-      tableData,
-      total,
+      pageTable,
+      login,
     };
   },
   created() {},
