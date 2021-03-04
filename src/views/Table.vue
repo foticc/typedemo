@@ -1,13 +1,10 @@
 <template>
   <div class="about">
-    <h1>Home</h1>
+    <h1>Table</h1>
     <h1>
-      <el-input
-        v-model.trim="params.zhengma"
-        placeholder="请输入内容"
-      ></el-input>
+      <el-input v-model="zhengma" placeholder="请输入内容"></el-input>
 
-      <el-button type="primary" @click="table(pageindex, pagesize, params)"
+      <el-button type="primary" @click="table(pageindex, pagesize, zhengma)"
         >loading</el-button
       >
     </h1>
@@ -34,19 +31,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, reactive, ref } from "vue";
+import { defineComponent, onBeforeMount, ref } from "vue";
 import request from "@/utils/request";
 
 export default defineComponent({
-  name: "Home",
+  name: "Table",
   methods: {
     handleSizeChange(val: number) {
       // this.pageTable.init(pagesize);
-      this.table(this.pageindex, val, this.params);
+      this.table(this.pageindex, val, this.zhengma);
     },
     handleCurrentChange(val: number) {
       // this.getall(val);
-      this.table(val, this.pagesize, this.params);
+      this.table(val, this.pagesize, this.zhengma);
     },
   },
   setup() {
@@ -54,19 +51,25 @@ export default defineComponent({
     const total = ref(0);
     const pageindex = ref(1);
     const pagesize = ref(12);
-    const params = reactive({});
+    const zhengma = ref(null);
     const table = async (
       pageindex: number = 1,
       pagesize: number = 12,
-      word: Object
+      word: any
     ) => {
       await request
-        .post("/hanzi/pagelist", word, {
-          params: {
-            pageindex,
-            pagesize,
+        .post(
+          "/hanzi/pagelist",
+          {
+            zhengma: word,
           },
-        })
+          {
+            params: {
+              pageindex,
+              pagesize,
+            },
+          }
+        )
         .then((res) => {
           content.value = res.data.content;
           total.value = res.data.totalElements;
@@ -76,7 +79,7 @@ export default defineComponent({
         });
     };
     onBeforeMount(() => {
-      table(pageindex.value, pagesize.value, params);
+      table(pageindex.value, pagesize.value, zhengma.value);
     });
     return {
       content,
@@ -84,7 +87,7 @@ export default defineComponent({
       table,
       pageindex,
       pagesize,
-      params,
+      zhengma,
     };
   },
 });
