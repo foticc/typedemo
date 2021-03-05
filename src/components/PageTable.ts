@@ -1,6 +1,5 @@
 import request from "@/utils/request"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
-import { computed, reactive, ref, Ref, UnwrapRef } from "vue"
+import { reactive, toRefs } from "vue"
 
 interface RequestParams {
   pageindex: number
@@ -8,13 +7,13 @@ interface RequestParams {
   params: any
 }
 
-interface PageTableResult {
+interface PageTableResult extends RequestParams {
   total: number
   content: Array<any>
 }
 
 export function pageTable(uri: string) {
-  const data = reactive({
+  const data: PageTableResult = reactive({
     pageindex: 1,
     pagesize: 12,
     total: 0,
@@ -45,7 +44,7 @@ export function pageTable(uri: string) {
   }
 
   return {
-    data,
+    ...toRefs(data),
     getTableData,
     handleSizeChange,
     handleCurrentChange,

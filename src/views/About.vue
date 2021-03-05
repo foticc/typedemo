@@ -5,23 +5,24 @@
     <code>{{ info }}</code>
     <h1><el-button type="primary" @click="login">login</el-button></h1>
     <h1>
+      <el-input v-model="params.word" placeholder=""></el-input>
       <el-button type="primary" @click="getTableData()">loading</el-button>
     </h1>
-    <el-table :data="data.content" style="width: 100%">
-      <el-table-column prop="hanzi" label="日期" width="180"> </el-table-column>
+    <el-table :data="content" style="width: 100%">
+      <el-table-column prop="id" label="ID" width="180"> </el-table-column>
       <el-table-column prop="word" label="姓名" width="180"> </el-table-column>
-      <el-table-column prop="description" label="地址"> </el-table-column>
+      <el-table-column prop="pinyin" label="地址"> </el-table-column>
     </el-table>
 
     <div class="block">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="data.pageindex"
+        :current-page="pageindex"
         :page-sizes="[10, 20, 30, 40]"
-        :page-size="data.pagesize"
+        :page-size="pagesize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="data.total"
+        :total="total"
       >
       </el-pagination>
     </div>
@@ -29,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from "vue";
+import { defineComponent, ref } from "vue";
 import { pageTable } from "@/components/PageTable";
 import { useStore } from "vuex";
 import request from "@/utils/request";
@@ -40,12 +41,15 @@ export default defineComponent({
   methods: {},
   setup() {
     const {
-      data,
+      total,
+      content,
+      pageindex,
+      pagesize,
+      params,
       getTableData,
       handleSizeChange,
       handleCurrentChange,
     } = pageTable("/hanzi/pagelist");
-    console.log(toRefs(data));
     const store = useStore();
     let info = ref({});
     // let tableData: any = ref([]);
@@ -81,7 +85,11 @@ export default defineComponent({
       gettoken,
       pageTable,
       login,
-      data,
+      total,
+      content,
+      pageindex,
+      pagesize,
+      params,
       getTableData,
       handleSizeChange,
       handleCurrentChange,
