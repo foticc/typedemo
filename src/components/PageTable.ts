@@ -51,11 +51,4 @@ export function pageTable(uri: string) {
   }
 }
 
-export function handleSizeChange(val: number) {
-  console.log(val)
-}
-export function handleCurrentChange(val: number) {
-  console.log(val)
-}
-
 export default pageTable
