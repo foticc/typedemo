@@ -38,13 +38,27 @@ export default defineComponent({
 //   position: relative;
 //   margin-top: 5px;
 // }
-.layout {
-  position: relative;
-}
-.el-header {
-  padding: 0;
-}
-.el-main {
-  padding: 0;
-}
+// .sidebar {
+//   width: 100%;
+//   height: 100%;
+//   text-align: left;
+//   background-color: #545c64;
+// }
+// .el-menu {
+//   border-right: none;
+// }
+// .el-aside {
+//   display: block;
+//   position: relative;
+//   background-color: #545c64 !important;
+// }
+// .layout {
+//   position: relative;
+// }
+// .el-header {
+//   padding: 0;
+// }
+// .el-main {
+//   padding: 0;
+// }
 </style>

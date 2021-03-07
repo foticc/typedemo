@@ -43,7 +43,7 @@ export default defineComponent({
   },
   methods: {
     logout() {
-      console.log(this.$route.matched);
+      this.$store.commit("reverse");
     },
   },
   computed: {

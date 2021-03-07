@@ -29,12 +29,24 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Table.vue"),
       },
       {
-        path: "*",
-        name: "404",
+        path: "/:pathMatch(.*)*",
+        name: "not found",
         component: NotFound,
       },
     ],
   },
+  // {
+  //   path: "/:pathMatch(.*)*",
+  //   name: "not found",
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: "/404",
+  //       name: "404",
+  //       component: NotFound,
+  //     },
+  //   ],
+  // },
   // {
   //   path: '/about',
   //   name: 'About',
