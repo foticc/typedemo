@@ -2,6 +2,7 @@ import { createRouter, RouteRecordRaw, createWebHashHistory } from "vue-router"
 import Home from "../views/Home.vue"
 import Layout from "../layout/Index.vue"
 import HelloWorld from "../components/HelloWorld.vue"
+import NotFound from "../components/404.vue"
 import About from "@/views/About.vue"
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/table",
         name: "Table",
         component: () => import("../views/Table.vue"),
+      },
+      {
+        path: "*",
+        name: "404",
+        component: NotFound,
       },
     ],
   },
