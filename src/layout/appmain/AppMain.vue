@@ -5,11 +5,13 @@
     <!-- <transition name="fade-transform" mode="out-in">
       <router-view key="/about" />
     </transition> -->
-    <router-view v-slot="{ Component }">
-      <transition>
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <tab-views>
+      <router-view v-slot="{ Component }">
+        <transition name="fade-transform" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </tab-views>
   </div>
   <!-- </template> -->
   <!-- <template #default>
@@ -18,9 +20,11 @@
   <!-- </Suspense> -->
 </template>
 <script lang="ts">
+import TabViews from "@/components/tagviews/TabViews.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  components: { TabViews },
   computed: {
     key() {
       return this.$route.path;

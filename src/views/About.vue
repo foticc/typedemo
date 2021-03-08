@@ -1,7 +1,6 @@
-/* eslint-disable no-redeclare */
 <template>
   <div>
-    <h1>This is an about page</h1>
+    <h1>About</h1>
     <code>{{ info }}</code>
     <h1><el-button type="primary" @click="login">login</el-button></h1>
     <h1>

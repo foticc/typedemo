@@ -31,7 +31,7 @@ instance.interceptors.response.use(
   },
   (err) => {
     // 对响应错误做点什么
-    ElMessage({ message: err.message })
+    // ElMessage({ message: err.message })
     return Promise.reject(err)
   }
 )

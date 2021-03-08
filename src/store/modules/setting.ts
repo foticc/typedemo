@@ -8,16 +8,19 @@ const mutations = {
   reverse(state: any) {
     state.isCollapse = !state.isCollapse
   },
-  pushTag(state: any, tag: any) {
-    state.tagViews.push(tag)
+  pushTag(state: any, tab: any) {
+    state.tagViews.push(tab)
   },
-  removeTag(state: any, tag: any) {
-    console.log(tag)
+  removeTab(state: any, tag: any) {
+    let index = state.tagViews.indexOf(tag)
+    if (index > -1) {
+      state.tagViews.splice(index, 1)
+    }
   },
 }
 
 export default {
-  namespace: true,
+  namespaced: true,
   state,
   mutations,
 }
