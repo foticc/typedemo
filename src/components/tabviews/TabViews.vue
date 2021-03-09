@@ -6,7 +6,7 @@
     v-model="active"
     closable="true"
   >
-    <el-tab-pane v-for="t in tagViews" :key="t" :name="t" lazy="true">
+    <el-tab-pane v-for="t in tabViews" :key="t" :name="t" lazy="true">
       <template #label>
         <span
           ><i class="el-icon-date"></i>
@@ -32,7 +32,7 @@ export default defineComponent({
     // },
   },
   computed: {
-    ...mapGetters(["tagViews"]),
+    ...mapGetters(["tabViews"]),
     routes() {
       console.log(this.$route);
       return this.$route;
@@ -62,7 +62,7 @@ export default defineComponent({
     watch(
       () => route.path,
       (topath) => {
-        let tabs: Array<string> = store.getters.tagViews;
+        let tabs: Array<string> = store.getters.tabViews;
         if (tabs.indexOf(topath) < 0) {
           store.commit("setting/pushTag", topath);
         }

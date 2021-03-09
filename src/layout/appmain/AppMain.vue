@@ -20,7 +20,7 @@
   <!-- </Suspense> -->
 </template>
 <script lang="ts">
-import TabViews from "@/components/tagviews/TabViews.vue";
+import TabViews from "@/components/tabviews/TabViews.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({

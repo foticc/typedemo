@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
-    // redirect: "/home",
+    redirect: "/home",
     // component:  () => import(/* webpackChunkName: "about" */ '../views/About.vue')
     component: Layout,
     children: [

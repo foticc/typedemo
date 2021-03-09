@@ -1,20 +1,27 @@
+import { MutationTree } from "vuex"
+
 // 全局的一些状态
-const state = {
-  isCollapse: false,
-  tagViews: [],
+export interface Setting {
+  isCollapse: boolean
+  tabViews: Array<any>
 }
 
-const mutations = {
-  reverse(state: any) {
+const state: Setting = {
+  isCollapse: false,
+  tabViews: [],
+}
+
+const mutations: MutationTree<Setting> = {
+  reverse(state: Setting) {
     state.isCollapse = !state.isCollapse
   },
-  pushTag(state: any, tab: any) {
-    state.tagViews.push(tab)
+  pushTag(state: Setting, tab: any) {
+    state.tabViews.push(tab)
   },
-  removeTab(state: any, tag: any) {
-    let index = state.tagViews.indexOf(tag)
+  removeTab(state: Setting, tag: any) {
+    let index = state.tabViews.indexOf(tag)
     if (index > -1) {
-      state.tagViews.splice(index, 1)
+      state.tabViews.splice(index, 1)
     }
   },
 }
