@@ -1,12 +1,59 @@
 <template>
+  <el-scrollbar :vertical="true" class="scroll-container">
+    <el-tag>标签一</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag>标签一</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag>标签一</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag>标签一</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+    <el-tag type="success">标签二</el-tag>
+    <el-tag type="info">标签三</el-tag>
+    <el-tag type="warning">标签四</el-tag>
+    <el-tag type="danger">标签五</el-tag>
+  </el-scrollbar>
   <el-tabs
     type="border-card"
     @tab-click="handleClick"
     @tab-remove="handleRemove"
     v-model="active"
-    closable="true"
   >
-    <el-tab-pane v-for="t in tabViews" :key="t" :name="t" lazy="true">
+    <el-tab-pane
+      v-for="t in tabViews"
+      :key="t"
+      :name="t"
+      :lazy="true"
+      :closable="false"
+    >
       <template #label>
         <span
           ><i class="el-icon-date"></i>
@@ -26,6 +73,7 @@ import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   name: "TabViews",
+  data() {},
   watch: {
     // $route() {
     //   this.$store.commit("pushTag", this.$route.path);
@@ -47,13 +95,21 @@ export default defineComponent({
     },
     handleRemove(tab: any) {
       this.$store.commit("setting/removeTab", tab);
+      console.log(this.tabViews.length);
+      if (this.tabViews.length === 0) {
+        this.$router.push({ path: "/" });
+      } else {
+        let tabViewsLast = this.tabViews.length - 1;
+        this.switchTab(this.tabViews[tabViewsLast]);
+      }
     },
   },
   setup() {
-    const active = ref("/");
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
+    // const active = ref("/");
+    const active = ref(router.currentRoute.value.path);
     const switchTab = (route: string) => {
       router.push({ path: route });
       active.value = route;
@@ -79,4 +135,9 @@ export default defineComponent({
 </script>
 
 <style>
+.scroll-container {
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
 </style>
